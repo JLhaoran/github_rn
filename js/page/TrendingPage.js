@@ -6,9 +6,10 @@ import {
     Text,
 } from 'react-native';
 
+import {connect} from 'react-redux';
+import actions from '../action/index'
 
-
-export default class TrendingPage extends Component{
+export  class TrendingPage extends Component{
   render(){
       const {navigation} = this.props;
     return(
@@ -17,13 +18,14 @@ export default class TrendingPage extends Component{
             <Button
               title="改变主题色"
               onPress={()=>{
-                  navigation.setParams({
-                      theme:{
-                          tintColor:'red',
-                          updateTime:new Date().getTime()
-                      }
-                      }
-                  )
+       //           navigation.setParams({
+       //               theme:{
+       //                    tintColor:'red',
+       //                    updateTime:new Date().getTime()
+       //                }
+       //                }
+       //            )
+                  this.props.onThemeChange('#096')
               }
               }
             />
@@ -31,6 +33,15 @@ export default class TrendingPage extends Component{
      );
   }
 }
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+    onThemeChange:theme => dispatch(actions.onThemeChange(theme))
+});
+
+//注意：connect只是个function，并不应定非要放在export后面
+export default connect(mapStateToProps, mapDispatchToProps)(TrendingPage);
 
 const styles = StyleSheet.create({
   container:{
