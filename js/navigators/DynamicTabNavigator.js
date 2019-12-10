@@ -70,10 +70,13 @@ const TABS = {PopularPage: {
 
  class DynamicTabNavigator extends React.Component{
     _tabNavigator(){
+        if(this.Tabs){
+            return this.Tabs;
+        }
         const {PopularPage,TrendingPage,FavoritePage,MyPage} = TABS;
         const tabs = {PopularPage,TrendingPage,FavoritePage,MyPage};//根据需要定制显示的tab
         // PopularPage.navigationOptions.tabBarLabel = '最新';//动态配置Tab标签文字
-        return createAppContainer(createBottomTabNavigator(tabs,{
+        return this.Tabs = createAppContainer(createBottomTabNavigator(tabs,{
             // tabBarComponent:TabBarComponent
             tabBarComponent: props => {
                 return <TabBarComponent theme={this.props.theme} {...props}/>

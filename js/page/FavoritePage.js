@@ -6,7 +6,10 @@ import {
     Text,
 } from 'react-native';
 
-export default class FavoritePage extends Component{
+import {connect} from 'react-redux';
+import actions from '../action/index'
+
+export  class FavoritePage extends Component{
   render(){
       const {navigation} = this.props;
     return(
@@ -15,15 +18,14 @@ export default class FavoritePage extends Component{
             <Button
                 title="改变主题色"
                 onPress={()=>{
-                    navigation.setParams({
-                            theme:{
-                                tintColor:'green',
-                                updateTime:new Date().getTime()
-                            }
-                        }
-
-                    );
-                    console.log("收藏改变主题色");
+                   // navigation.setParams({
+                   //         theme:{
+                  //              tintColor:'green',
+                  //              updateTime:new Date().getTime()
+                  //          }
+                  //      }
+                 //  );
+                    this.props.onThemeChange('#206');
                 }
                 }
             />
@@ -31,6 +33,13 @@ export default class FavoritePage extends Component{
      );
   }
 }
+
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({
+    onThemeChange:theme => dispatch(actions.onThemeChange(theme))
+});
+//注意：connect只是个function，并不应定非要放在export后面
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritePage);
 
 const styles = StyleSheet.create({
   container:{
